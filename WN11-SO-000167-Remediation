@@ -1,0 +1,32 @@
+<#
+.SYNOPSIS
+    This PowerShell script restricts remote calls to SAM to Administrators only
+    by configuring the RestrictRemoteSAM registry value.
+.NOTES
+    Author          : Terrance Fortson
+    LinkedIn        : linkedin.com/in/terrancefortson/
+    GitHub          : github.com/terrcyber
+    Date Created    : 2026-03-12
+    Last Modified   : 2026-03-12
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN11-SO-000167
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Run with administrative privileges.
+    Example syntax:
+    PS C:\> .\WN11-SO-000167_remediation.ps1
+#>
+
+$registryPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa"
+$valueName    = "RestrictRemoteSAM"
+$valueData    = "O:BAG:BAD:(A;;RC;;;BA)"
+
+Set-ItemProperty -Path $registryPath -Name $valueName -Value $valueData -Type String -Force
+
+Write-Host "STIG WN11-SO-000167 remediation applied successfully." -ForegroundColor Green
