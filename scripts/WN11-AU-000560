@@ -1,0 +1,34 @@
+<#
+.SYNOPSIS
+    This PowerShell script configures Windows 11 to audit Other Logon/Logoff Events
+    for Success, as required by STIG WN11-AU-000560.
+.NOTES
+    Author          : Terrance Fortson
+    LinkedIn        : linkedin.com/in/terrancefortson/
+    GitHub          : github.com/terrcyber
+    Date Created    : 2026-03-12
+    Last Modified   : 2026-03-12
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN11-AU-000560
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Run with administrative privileges.
+    Example syntax:
+    PS C:\> .\WN11-AU-000560_remediation.ps1
+#>
+
+AuditPol /set /subcategory:"Other Logon/Logoff Events" /success:enable
+
+$result = AuditPol /get /subcategory:"Other Logon/Logoff Events"
+
+if ($result -match "Success") {
+    Write-Host "STIG WN11-AU-000560 remediation applied successfully." -ForegroundColor Green
+} else {
+    Write-Host "Remediation may have failed. Please verify manually." -ForegroundColor Red
+}
