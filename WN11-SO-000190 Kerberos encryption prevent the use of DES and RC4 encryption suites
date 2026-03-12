@@ -1,0 +1,34 @@
+<#
+.SYNOPSIS
+    This PowerShell script configures Kerberos encryption types to prevent the use
+    of DES and RC4 encryption suites by enabling only AES128, AES256, and future
+    encryption types.
+.NOTES
+    Author          : Terrance Fortson
+    LinkedIn        : linkedin.com/in/terrancefortson/
+    GitHub          : github.com/terrcyber
+    Date Created    : 2026-03-12
+    Last Modified   : 2026-03-12
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN11-SO-000190
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Run with administrative privileges.
+    Example syntax:
+    PS C:\> .\WN11-SO-000190_remediation.ps1
+#>
+
+$registryPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Kerberos\Parameters"
+$valueName    = "SupportedEncryptionTypes"
+$valueData    = 0x7ffffff8
+
+New-Item -Path $registryPath -Force | Out-Null
+Set-ItemProperty -Path $registryPath -Name $valueName -Value $valueData -Type DWord -Force
+
+Write-Host "STIG WN11-SO-000190 remediation applied successfully." -ForegroundColor Green
