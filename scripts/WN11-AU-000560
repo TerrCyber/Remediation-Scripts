@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
     This PowerShell script configures Windows 11 to audit Other Logon/Logoff Events
-    for Success, as required by STIG WN11-AU-000560.
+    for Success.
 .NOTES
     Author          : Terrance Fortson
     LinkedIn        : linkedin.com/in/terrancefortson/
