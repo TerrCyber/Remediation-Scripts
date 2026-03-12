@@ -22,7 +22,7 @@
 .USAGE
     Put any usage instructions here.
     Example syntax:
-    PS C:\> .\__remediation_template(WN11-AU-000500 remediation).ps1 
+    PS C:\> .\WN11-AU-000500 remediation.ps1 
 #>
 
 # Define the registry path and value
