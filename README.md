@@ -38,6 +38,7 @@ The goal of this repository is to:
 | WN11-EP-000310 | This PowerShell script enables Kernel DMA Protection by setting the Device Enumeration Policy to Block All (0) in the Windows registry|
 | WN11-SO-000167 | This PowerShell script restricts remote calls to SAM to Administrators only by configuring the RestrictRemoteSAM registry value.|
 | WN11-UR-000010 | This PowerShell script ensures that only Administrators and Remote Desktop Users are granted the "Access this computer from the network" user right.|
+| WN11-SO-000025 | This PowerShell script renames the built-in Guest account to a non-default nameto satisfy the requirement that the Guest account must not be named "Guest".|
 
 More STIG remediations will be added as they are completed.
 
