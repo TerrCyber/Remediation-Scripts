@@ -1,0 +1,33 @@
+<#
+.SYNOPSIS
+    This PowerShell script configures Windows 11 to prioritize ECC Curves with longer
+    key lengths first by setting NistP384 before NistP256 in the ECC Curve Order.
+.NOTES
+    Author          : Terrance Fortson
+    LinkedIn        : linkedin.com/in/terrancefortson/
+    GitHub          : github.com/terrcyber
+    Date Created    : 2026-03-12
+    Last Modified   : 2026-03-12
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN11-CC-000052
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Run with administrative privileges.
+    Example syntax:
+    PS C:\> .\WN11-CC-000052_remediation.ps1
+#>
+
+$registryPath = "HKLM:\SOFTWARE\Policies\Microsoft\Cryptography\Configuration\SSL\00010002"
+$valueName    = "EccCurves"
+$valueData    = @("NistP384", "NistP256")
+
+New-Item -Path $registryPath -Force | Out-Null
+Set-ItemProperty -Path $registryPath -Name $valueName -Value $valueData -Type MultiString -Force
+
+Write-Host "STIG WN11-CC-000052 remediation applied successfully." -ForegroundColor Green
