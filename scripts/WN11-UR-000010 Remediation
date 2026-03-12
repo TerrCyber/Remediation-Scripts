@@ -1,1 +1,41 @@
+<#
+.SYNOPSIS
+    This PowerShell script ensures that only Administrators and Remote Desktop Users
+    are granted the "Access this computer from the network" user right.
+.NOTES
+    Author          : Terrance Fortson
+    LinkedIn        : linkedin.com/in/terrancefortson/
+    GitHub          : github.com/terrcyber
+    Date Created    : 2026-03-12
+    Last Modified   : 2026-03-12
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN11-UR-000010
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Run with administrative privileges.
+    Example syntax:
+    PS C:\> .\WN11-UR-000010_remediation.ps1
+#>
 
+$infContent = @"
+[Unicode]
+Unicode=yes
+[Privilege Rights]
+SeNetworkLogonRight = *S-1-5-32-544,*S-1-5-32-555
+[Version]
+signature="`$CHICAGO`$"
+Revision=1
+"@
+
+$infPath = "$env:TEMP\WN11-UR-000010.inf"
+$infContent | Out-File -FilePath $infPath -Encoding Unicode
+
+secedit /configure /db "$env:TEMP\WN11-UR-000010.sdb" /cfg $infPath /quiet
+
+Write-Host "STIG WN11-UR-000010 remediation applied successfully." -ForegroundColor Green
